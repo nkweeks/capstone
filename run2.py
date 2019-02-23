@@ -77,7 +77,13 @@ def main():
             logging.info(f'{i},{lang},{func_name},{time.time() - start}')
         print('done')
     else:
-        run_all()
+        logging.basicConfig(format='%(message)s',
+                            filename=f'./data/{lang}{func_name}.log',
+                            level=logging.DEBUG)
+        for i in range(100):
+            start = time.time()
+            run_all()
+            logging.info(f'{i},{lang},{func_name},{time.time() - start}')
 
 
 if __name__ == '__main__':
