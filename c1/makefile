@@ -12,3 +12,5 @@ branch: branch.c
 loop: loop.c
 	gcc -o loop loop.c
 
+clean:
+	find -executable -delete
