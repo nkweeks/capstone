@@ -2,7 +2,7 @@
 
 
 public class loop {
-    public static final int NUM_OF_LOOPS = 1000;
+    public static final int NUM_OF_LOOPS = 100000;
 
     public static void main(String[] args) {
         long start = System.nanoTime();

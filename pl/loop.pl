@@ -4,7 +4,7 @@
 
 use Time::HiRes;
 
-my $NUM_OF_LOOPS = 1000;
+my $NUM_OF_LOOPS = 100;
 
 # Gather the start time of the loops
 my $start = Time::HiRes::gettimeofday();

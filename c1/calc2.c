@@ -1,31 +1,35 @@
-// loop.c
+// calc.c
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-#define NUM_OF_LOOPS 100
+#define NUM_OF_LOOPS 5
 
+// Function prototypes
 static long get_nanos(void);
+long pow(long x, long y);
 
 int main(void)
 {
-    // Gather the start time of the program
     long start = get_nanos();
-
-    // Loop 1 billion times
-    for (int i = 0; i < NUM_OF_LOOPS; i++) {
-        for (int j = 0; j < NUM_OF_LOOPS; j++) {
-            for (int k = 0; k < NUM_OF_LOOPS; k++){}
-        }
+    for (int i = 1; i <= NUM_OF_LOOPS; i++) {
+        // Exponent
+        i = pow(i, i);
+        printf("%ld\n", i);
     }
-
-    // Gather the end time
     long end = get_nanos();
-
-    // Print out the elapsed time
     printf("%Lf\n", (((long double)end) - start) / 1000000000);
 }
 
+
+long pow(long x, long y) 
+{
+    if (y <= 1) {
+        return x;
+    } else {
+        return pow(x, y-1) * pow(x, y-2);
+    }
+}
 
 static long get_nanos(void) {
     struct timespec ts;

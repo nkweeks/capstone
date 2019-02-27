@@ -3,15 +3,40 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define NUM_OF_LOOPS 10
+
+// Function prototypes
 static long get_nanos(void);
+long pow(long x, long y);
 
 int main(void)
 {
     long start = get_nanos();
+    for (int i = 1; i <= NUM_OF_LOOPS; i++) {
+        // Exponent
+        i = pow(i, i);
+        // Multiply
+        i = i * i;
+        // Divide
+        i = i / i;
+        // Add
+        i = i + i;
+        // Subtract
+        i = i - i;
+    }
     long end = get_nanos();
     printf("%Lf\n", (((long double)end) - start) / 1000000000);
 }
 
+
+long pow(long x, long y) 
+{
+    if (y <= 1) {
+        return x;
+    } else {
+        return pow(x, y-1) * pow(x, y-2);
+    }
+}
 
 static long get_nanos(void) {
     struct timespec ts;
