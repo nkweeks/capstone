@@ -2,7 +2,7 @@
 
 from time import time_ns
 
-NUM_OF_LOOPS = 1000
+NUM_OF_LOOPS = 100
 
 def main():
     start = time_ns()
