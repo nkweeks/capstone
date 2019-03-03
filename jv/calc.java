@@ -1,18 +1,24 @@
 // calc.java
-
-
 public class calc {
-    public static final int NUM_OF_LOOPS = 100000;
+    public static final int NUM_OF_LOOPS = 1000;
 
     public static void main(String[] args) {
+        // Start timer
         long start = System.nanoTime();
-        for(int i=0; i<NUM_OF_LOOPS; i++){
-            // Save the counter to a variable that can be used
-            int x = i;
 
-            // Raise the counter to the power of itself
-            x = pow(i, i);
-
+        // Restart calculations 100 times
+        for(int j = 0; j < 100; j++) {
+            // Loop through 1000 sets of calculations
+            for(int i = 1; i <= NUM_OF_LOOPS; i++){
+                // Raise the counter to the power of itself
+                long x = mypow(i, 3);
+                // Multiply 
+                x = x * 3;
+                // Divide
+                x = x / i;
+                // Subtract
+                x = x - i;
+            }
         }
 
         // Calculate the time taken to run
@@ -21,5 +27,14 @@ public class calc {
 
         // Print out the elapsed time
         System.out.printf("%f\n", elapsedTime);
+    }
+
+
+    /** returns the minimum of two numbers */
+    public static long mypow(long x, int y) {
+       if (y <= 1)
+          return x;
+       else
+          return x * mypow(x, y-1);
     }
 }

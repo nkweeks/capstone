@@ -2,6 +2,7 @@
 notes
 *.class
 *.out
+.*
 calc
 branch
 loop

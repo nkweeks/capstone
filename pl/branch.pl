@@ -1,5 +1,4 @@
 #!/usr/bin/env perl
-
 # branch.pl
 
 use Time::HiRes;

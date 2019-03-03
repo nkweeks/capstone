@@ -1,5 +1,4 @@
 #!/usr/bin/env perl
-
 # loop.pl
 
 use Time::HiRes;
