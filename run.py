@@ -27,85 +27,37 @@ def get_lang():
         return None
 
 
-def get_funcname():
-    try:
-        return sys.argv[2].title()
-    except:
-        return None
+def get_func():
+    funcs = ('./c1/branch', './c1/calc', './c1/loop',
+            ('java', '-cp', './jv/', 'branch'),
+            ('java', '-cp', './jv/', 'calc'),
+            ('java', '-cp', './jv/', 'loop'),
+            './py/branch.py', './py/calc.py', './py/loop.py',
+            './pl/branch.pl', './pl/calc.pl', './pl/loop.pl')
+    for func in funcs:
+        yield func
 
-
-def get_subfunc():
-    try:
-        if sys.argv[1] == 'py':
-            return {'calc': './py/calc.py', 
-                    'branch': './py/branch.py',
-                    'loop': './py/loop.py'}[sys.argv[2]]
-        elif sys.argv[1] == 'pl':
-            return {'calc': './pl/calc.pl', 
-                    'branch': './pl/branch.pl',
-                    'loop': './pl/loop.pl'}[sys.argv[2]]
-        elif sys.argv[1] == 'jv':
-            return {'calc': 'java -cp ./jv/ calc', 
-                    'branch': 'java -cp ./jv/ branch',
-                    'loop': 'java -cp ./jv/ loop'}[sys.argv[2]]
-        elif sys.argv[1] == 'c':
-            return {'calc': './c1/calc', 
-                    'branch': './c1/branch',
-                    'loop': './c1/loop'}[sys.argv[2]]
-        else:
-            return None
-    except:
-        return None
 
 def run_all():
     logging.basicConfig(format='%(message)s',
                         filename=f'./data/AllLangs.log',
-                        level=logging.DEBUG)
-    all_funcs = ('./py/calc.py', './py/branch.py', './py/loop.py', 
-                 './pl/calc.pl', './pl/branch.pl', './pl/loop.pl', 
-                 ['java', 'calc'], ['java', 'branch'], ['java', 'loop'],
-                 './c1/calc', './c1/branch','./c1/loop')
-    for c, func in enumerate(all_funcs):
-        lang = ('Python', 'Perl', 'Java', 'C')[c//3]
-        if lang == 'Java':
-            if 'jv' not in os.getcwd():
-                os.chdir('jv')
-        elif lang == 'C':
-            if 'jv' in os.getcwd():
-                os.chdir('..')
-        func_name = ''
-        if 'calc' in func:
-            func_name = 'Calc'
-        elif 'loop' in func:
-            func_name = 'Loop'
-        elif 'branch' in func:
-            func_name = 'Branch'
-        for i in range(NUM_OF_LOOPS):
-            start = time.time()
-            subprocess.run(func)
-            logging.info(f'{i},{lang},{func_name},{time.time() - start}')
+                        level=logging.DEBUG,
+                        filemode = 'w')
+
+    lang = ['C', 'Java', 'Python', 'Perl']
+
+    for i, func in enumerate(get_func()):
+        num_loops = 100
+        for k in range(num_loops):
+            r = subprocess.run(func, capture_output=True).stdout.decode().strip()
+            func_out = (['Branch', 'Calc', 'Loop']*num_loops)[(k+num_loops*i)//num_loops]
+            logging.info(f'{k+num_loops*i},{lang[i//(3)]},{func_out},{r}')
 
 
 def main():
     '''This function runs the program and calls the particular language 
     function combination '''
-
-    lang = get_lang()
-    func_name = get_funcname()
-    subfunc = get_subfunc()
-    
-    if lang and func_name and subfunc:
-        logging.basicConfig(format='%(message)s',
-                            filename=f'./data/{lang}{func_name}.log',
-                            level=logging.DEBUG)
-        
-        for i in range(NUM_OF_LOOPS):
-            start = time.time()
-            subprocess.run(subfunc, capture_output=True)
-            logging.info(f'{i},{lang},{func_name},{time.time() - start}')
-        print('done')
-    else:
-        run_all()
+    run_all()
 
 
 if __name__ == '__main__':
