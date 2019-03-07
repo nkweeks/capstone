@@ -40,7 +40,7 @@ def get_func():
 
 def run_all():
     logging.basicConfig(format='%(message)s',
-                        filename=f'./data/AllLangs.log',
+                        filename=f'./data/data.csv',
                         level=logging.DEBUG,
                         filemode = 'w')
 
