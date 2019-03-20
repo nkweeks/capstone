@@ -7,7 +7,9 @@ NUM_OF_LOOPS = 1000000
 
 
 def main():
+    # Take start time
     start = time_ns()
+    # Loop through the following branch statements 1,000,000 times
     for i in range(0, NUM_OF_LOOPS):
         if i == 1:
             pass
@@ -30,6 +32,7 @@ def main():
         if i == 10:
             pass
     end = time_ns()
+    # Get elapsed time
     print( (end-start) / 1000000000)
 
 
