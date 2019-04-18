@@ -33,7 +33,7 @@ def main():
             plt.legend(loc='upper right')
             plt.xlim(0,100)
             plt.ylim(0)
-            # plt.show()
+            plt.show()
             try:
                 which_func += 1
 
